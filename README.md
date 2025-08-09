@@ -81,6 +81,6 @@ To migrate a React application from CRA to Vite, follow these steps:
    ```
 
   8. **Build for Production**: To build your application for production, run the following command:
-   ```
-   yarn build
-   ```
+    ```
+    yarn build
+    ```
