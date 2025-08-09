@@ -1,3 +1,6 @@
+# Migrating Create React App to Vite
+This repository contains a simple React application that has been migrated from Create React App (CRA) to Vite. The migration process involves updating the project structure, dependencies, and configuration files to align with Vite's build system.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
