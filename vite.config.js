@@ -7,4 +7,13 @@ export default defineConfig({
   build: {
     outDir: 'build', // CRA's default build output
   },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: '/src/setupTests.jsx', // Path to your setup file
+  },
+  server: {
+    port: 3000,
+    open: true,
+  },
 });

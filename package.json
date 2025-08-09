@@ -10,12 +10,13 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "vite": "^7.1.1",
+    "vitest": "^3.2.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "vite",
     "build": "vite build",
-    "test": "vite test",
+    "test": "vitest",
     "eject": "vite eject"
   },
   "eslintConfig": {
@@ -35,5 +36,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "jsdom": "^26.1.0"
   }
 }
