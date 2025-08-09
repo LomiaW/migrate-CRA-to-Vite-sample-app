@@ -1,73 +1,86 @@
 # Migrating Create React App to Vite
 This repository contains a simple React application that has been migrated from Create React App (CRA) to Vite. The migration process involves updating the project structure, dependencies, and configuration files to align with Vite's build system.
 
-# Getting Started with Create React App
+# Getting Started with Vite + React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Vite](https://vitejs.dev/).
 
 ## Available Scripts
 
-In the project directory, you can run:
+This project includes the following scripts:
 
-### `npm start`
+- `yarn dev` - Starts the development server.
+- `yarn build` - Builds the app for production.
+- `yarn test` - Runs the test suite.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Migration Guide
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+To migrate a React application from CRA to Vite, follow these steps:
 
-### `npm test`
+1. **Remove CRA Dependencies**: Uninstall CRA-specific dependencies from your project.
+   ```
+   yarn remove react-scripts
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. **Install Vite and React Plugin**: Add Vite and the React plugin to your project dependencies.
+   ```
+   yarn add vite @vitejs/plugin-react --dev
+   ```
 
-### `npm run build`
+3. **Update Project Structure**: Adjust your project structure to fit Vite's conventions. This may include reorganizing your `src` folder and updating import paths.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   - Move your `index.html` file from the `public` folder to the root of your project.
+   - Change all JavaScript file extensions from `.js` to `.jsx` in the `src` folder.
+   - Update import paths in your components to reflect the new file extensions.
+   - Vite handles assets directly from the `public` folder, so update your asset paths accordingly.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+4. **Migrate Tests**: If you have tests set up, you'll need to migrate them to use Vite's testing framework (e.g., Vitest).
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    - Install Vitest and related testing libraries:
+      ```
+      yarn add vitest @testing-library/react @testing-library/jest-dom jsdom --dev
+      ```
+    - Update your test files to import from `@testing-library/react` and adjust any configurations as needed.
 
-### `npm run eject`
+5. **Update Vite Configuration**: Create a `vite.config.js` file in the root of your project and configure it for React.
+   ```js
+   import { defineConfig } from 'vite';
+   import react from '@vitejs/plugin-react';
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   export default defineConfig({
+     plugins: [react()],
+     test: {
+       environment: 'jsdom',
+     },
+   });
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+6. **Update Package Scripts**: Modify the `scripts` section in your `package.json` file to use Vite commands.
+   ```json
+   {
+     "scripts": {
+       "dev": "vite",
+       "build": "vite build",
+       "test": "vitest"
+     }
+   }
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+7. **Configure Dev Server**: Update the Vite development server configuration in `vite.config.js` if needed.
+   ```js
+   import { defineConfig } from 'vite';
+   import react from '@vitejs/plugin-react';
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   export default defineConfig({
+     plugins: [react()],
+     server: {
+       port: 3000,
+       open: true,
+     },
+   });
+   ```
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+  8. **Build for Production**: To build your application for production, run the following command:
+   ```
+   yarn build
+   ```
